@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  website-service:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "80:80/tcp"
+    environment:
+      - REST_API_ADDRESS=192.168.8.241
+      - CONTROLLER_API_SERVER_ADDRESS=192.168.8.241
+      - WEBSITE_SERVER_ADDRESS=192.168.8.247
+      - REST_API_PORT=3000
+      - CONTROLLER_API_PORT=3001
+      - WEBSITE_PORT=80
+      - REFRESH_RATE=15
+    #stdin_open: true
+    #tty: true
+    #network_mode: host
+

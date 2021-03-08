@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  controller-service:
+    build: .
+    volumes:
+      - .:/var/www
+      #- 
+      #- .:/app
+    ports:
+      - "3001:3001/tcp"
+    environment:
+      - REST_API_ADDRESS=192.168.8.241
+      - WEBSITE_CONTROLLER_ADDRESS=192.168.8.241
+      - CONTROLLER_API_SERVER_ADDRESS=192.168.8.241
+      - REST_API_PORT=3000
+      - CONTROLLER_API_PORT=3001
+      - WEBSITE_PORT=3005
+    command: uwsgi --http :3001 -wsgi-file uwsgi.ini --uid www-data --gid www-data
+    #stdin_open: true
+    #tty: true
+    #network_mode: host
+

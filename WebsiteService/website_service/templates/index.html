@@ -1,0 +1,92 @@
+<!doctype htlm>
+<htlm>
+<head>
+    <title>Registered Devices </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+    .button {
+      border: 2px solid black;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      margin: 4px 2px;
+      cursor: pointer;
+      }
+
+      .button1 {background-color: #4CAF50;} /* Green */
+      .button2 {background-color: #FF0000;} /* Red */
+    </style>
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/"><img src="{{ tux }}" width="60px"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/devices">Devices</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Timer
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/timers">Timarar</a>
+              <a class="dropdown-item" href="/create_timer_input">Nýggjur</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+        <h1>Device {{ packet['alias'] }}:</h1>
+    <div class="card" style="width: 20rem;">
+    <p> IP Address: {{ip}}</p>
+    <form action="/test" method="post">
+    <input type="hidden" name="ip" value={{ ip }}/>
+    Device Status: {{ "On" if packet["is_on"] else "Off" }} <button class="button button1" type="submit" name="onoff" value="on">ON</button>
+    <button class="button button2" type="submit" name="onoff" value="off">OFF</button>
+    </form>
+    </div>
+    <div class="card" style="width: 20rem;">
+    <p>Device Type: {{ packet["model"] }}</p>
+    <p>Device been on since: {{ On_since[0] }}</p>
+    <p>LED Status on Socket: {{ packet["led_state"] }}</p>
+    </div>
+    <div class="card" style="width: 20rem;">
+    <p>Active Readings:</p>
+    <p>Current: {{ packet["emeter_realtime"]["current"]}}</p>
+    <p>Voltage: {{ packet["emeter_realtime"]["voltage"]}}</p>
+    <p>Power: {{ packet["emeter_realtime"]["power"]}}</p>
+    </div>
+    <div class="card" style="width: 50rem;">
+    <p>Statistic Readings:</p>
+    <img src="{{ plot }}" />
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <meta http-equiv="refresh" content="{{ refresh }}" />
+    </body>
+</html>

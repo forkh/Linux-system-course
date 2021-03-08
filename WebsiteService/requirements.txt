@@ -1,0 +1,6 @@
+Flask==1.1.2
+flask_restful==0.3.8
+markdown==3.3.3
+python-kasa==0.4.0.dev2
+requests==2.25.1
+matplotlib==3.3.3
